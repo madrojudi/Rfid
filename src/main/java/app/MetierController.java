@@ -40,6 +40,7 @@ public class MetierController {
            System.out.println(arr1[m]);
            ans += Integer.toHexString(arr1[m])+",";
         }
+        reader.CloseNetPort(port);
 		return ans;
 	}
 	

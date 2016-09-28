@@ -1,7 +1,7 @@
-<%@page import="app.RfidModel"%>
+<%@page import="app.ParameterModel"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%RfidModel model = (RfidModel)request.getAttribute("model"); %>
+    <%ParameterModel model = (ParameterModel)request.getAttribute("model"); %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -22,43 +22,36 @@
 				<div class="col-md-12">
 						<nav class="navbar navbar-inverse	">
 							<div class="navbar-form pull-right">
-								<a href="/Rfid/parameter">
+								<a href="/Rfid/">
 									<button  class="btn btn-primary btn-sm">
 										<span class="glyphicon glyphicon-user"></span> 
-										Parameters
+										Home
 									</button>
 								</a>
-									
 							</div> 									
 						</nav>
 					</div>														
 			</div>	
 	</header>
 	<div class ="container ">	
-		<label style="color:red;"> <%=model.getError()%> </label>
 		<div class="panel panel-info" id="conn">
-			
-	        	<div class="panel-body">
-	        		<form action="/Rfid/" method="post">
-	        			<input class="btn btn-primary col-md-2" type="submit" value="Reader" name="action"/>
-	        			<textarea class="col-md-8 well col-lg-offset-1" name="area" >
-	        				<%=model.getEpc() %>
-	        			</textarea>
-		        		<br/>
-		        		
-	        		</form>
-	        		
-	        		
-					
-	        	</div>
-				
-				 
-	        </div>
-	        <div >
-		        <form action="/Rfid/" method="post">
-		        	<input class="btn btn-primary col-md-2 pull-right" type="submit" value="Send" name="action"/>
-	        	</form>
-	        </div>
+			<br>
+			<form action="/Rfid/parameter" method="post">
+				<div class="row">
+					<label class="col-md-2 col-md-offset-1" >Address :</label> <input class="col-md-3" type="text" name="address" value = "${model.getAddress() }"  />
+				</div>
+				<div class="row">
+					<label class="col-md-2 col-md-offset-1" >Port : </label><input class="col-md-3" type="text" name="port" value = "${model.getPort() }"/>
+				</div>
+				<div class="row">
+					<label class="col-md-2 col-md-offset-1" >Address IP : </label><input class="col-md-3" type="text" name="addressIp" value = "${model.getAddressIp() }"/>
+				</div>
+				<div class="row">
+					<input class="btn btn-primary pull-right" type="submit" value="Save" name="action"/>
+				</div>
+			</form>
+			<br>
+		</div>
 	</div>
 </body>
 </html>

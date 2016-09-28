@@ -1,6 +1,10 @@
 package app;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,9 +17,9 @@ public class ControllerServlet extends HttpServlet{
 	 * 
 	 */
 	private static final long serialVersionUID = 7979760464963888561L;
-	private final String address = "192.168.8.120";
-	private final int port = 1024;
-	private final int numRfid = 255;
+	private String address = "192.168.8.120";
+	private int port = 1024;
+	private int numRfid = 255;
 	
 	private MetierController metier;
 	private String errorDll = "";
@@ -25,6 +29,27 @@ public class ControllerServlet extends HttpServlet{
 		// TODO Auto-generated method stub
 		try {
 			metier = new MetierController();
+			BufferedReader in = new BufferedReader(
+	                new InputStreamReader(getClass().getResourceAsStream("/config.ini")));
+	        String inputLine;
+	        String response = "";
+	        try {
+	            while((inputLine=in.readLine())!=null){
+	                response += inputLine;
+	            }
+	        } catch (IOException ex) {
+	            Logger.getLogger(ParameterServlet.class.getName()).log(Level.SEVERE, null, ex);
+	        }finally{
+	        	try {
+					in.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	        }
+	        numRfid = (Integer.parseInt(response.split(" ")[0]));
+	        port = ( Integer.parseInt(response.split(" ")[1]));
+	        address = (response.split(" ")[2]);
 	       } catch (UnsatisfiedLinkError ex) {
 	         errorDll = ex.getMessage();
 	         System.err.println(""+ex);
@@ -36,7 +61,7 @@ public class ControllerServlet extends HttpServlet{
 		// TODO Auto-generated method stub
 		RfidModel model = new RfidModel();
 		model.setError(errorDll);
-		model.setSend("");
+		model.setSend(" ");
 		req.setAttribute("model", model);
 		req.getRequestDispatcher("Rfid.jsp").forward(req, resp);
 	}

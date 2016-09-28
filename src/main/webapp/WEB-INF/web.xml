@@ -7,6 +7,15 @@
   </servlet>
   <servlet-mapping>
       <servlet-name>cs</servlet-name>
-      <url-pattern>/rfid</url-pattern>
+      <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+      <servlet-name>ps</servlet-name>
+      <servlet-class>app.ParameterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>ps</servlet-name>
+      <url-pattern>/parameter</url-pattern>
   </servlet-mapping>
 </web-app>
