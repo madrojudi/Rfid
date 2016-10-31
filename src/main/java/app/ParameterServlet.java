@@ -23,7 +23,7 @@ public class ParameterServlet extends HttpServlet{
 	private static final long serialVersionUID = 7979760464963888561L;
 	private String address = "192.168.8.120";
 	private int port = 1024;
-	private int numRfid = 255;
+	private String numRfid = "FF";
 	
 	private MetierController metier;
 	private String errorDll = "";
@@ -51,7 +51,7 @@ public class ParameterServlet extends HttpServlet{
 			}
         }
         model = new ParameterModel();
-        model.setAddress(Integer.parseInt(response.split(" ")[0]));
+        model.setAddress(response.split(" ")[0]);
         model.setPort( Integer.parseInt(response.split(" ")[1]));
         model.setAddressIp(response.split(" ")[2]);
 	}
@@ -69,7 +69,7 @@ public class ParameterServlet extends HttpServlet{
 		String action = request.getParameter("action");
 		
 		if(action.equals("Save")){
-			model.setAddress(Integer.parseInt(request.getParameter("address")));
+			model.setAddress(request.getParameter("address"));
 	        model.setPort( Integer.parseInt(request.getParameter("port")));
 	        model.setAddressIp(request.getParameter("addressIp"));
 	        save();

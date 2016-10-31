@@ -32,6 +32,10 @@ public class Reader18 {
     public native int Writebaud(int[] arr);
     public native int WriteScanTime(int[] arr);
     public native int SetAccuracy(int[] arr);
+    public native int SetRedLED(int[] arr);
+    public native int SetGreenLED(int[] arr);
+    public native int[] GetLEDStatus(int[] arr);
+
     //EPC  G2
     public native int[] Inventory_G2(int[]arr);
     public native int[] ReadCard_G2(int[]arr);
@@ -47,6 +51,7 @@ public class Reader18 {
     public native int[] SetEASAlarm_G2(int[]arr);
     public native int[] CheckEASAlarm_G2(int[]arr);
     public native int[] LockUserBlock_G2(int[]arr);
+
     //18000_6B
     public native int[] Inventory_6B(int[]arr);
     public native int[] inventory2_6B(int[]arr);
@@ -54,6 +59,7 @@ public class Reader18 {
     public native int[] WriteCard_6B(int[]arr);
     public native int[] LockByte_6B(int[]arr);
     public native int[] CheckLock_6B(int[]arr);
+    
     public static void main(String[] args) {
         // TODO code application logic here
     }

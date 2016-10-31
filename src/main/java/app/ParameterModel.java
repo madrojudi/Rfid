@@ -4,7 +4,7 @@ public class ParameterModel {
 	
 	private String addressIp;
 	private int port;
-	private int address;
+	private String address;
 	public String getAddressIp() {
 		return addressIp;
 	}
@@ -17,10 +17,10 @@ public class ParameterModel {
 	public void setPort(int port) {
 		this.port = port;
 	}
-	public int getAddress() {
+	public String getAddress() {
 		return address;
 	}
-	public void setAddress(int address) {
+	public void setAddress(String address) {
 		this.address = address;
 	}
 	public ParameterModel() {

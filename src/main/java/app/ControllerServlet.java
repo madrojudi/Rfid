@@ -19,7 +19,7 @@ public class ControllerServlet extends HttpServlet{
 	private static final long serialVersionUID = 7979760464963888561L;
 	private String address = "192.168.8.120";
 	private int port = 1024;
-	private int numRfid = 255;
+	private String numRfid = "FF";
 	
 	private MetierController metier;
 	private String errorDll = "";
@@ -28,7 +28,7 @@ public class ControllerServlet extends HttpServlet{
 	public void init() throws ServletException {
 		// TODO Auto-generated method stub
 		try {
-			metier = new MetierController();
+			
 			BufferedReader in = new BufferedReader(
 	                new InputStreamReader(getClass().getResourceAsStream("/config.ini")));
 	        String inputLine;
@@ -47,9 +47,13 @@ public class ControllerServlet extends HttpServlet{
 					e.printStackTrace();
 				}
 	        }
-	        numRfid = (Integer.parseInt(response.split(" ")[0]));
+	        numRfid = response.split(" ")[0];
+	        //System.out.println("num2 = "+Integer.parseInt(numRfid, 16));
 	        port = ( Integer.parseInt(response.split(" ")[1]));
+	        //System.out.println("port = "+port);
 	        address = (response.split(" ")[2]);
+	        //System.out.println("address = "+address);
+	        metier = new MetierController();
 	       } catch (UnsatisfiedLinkError ex) {
 	         errorDll = ex.getMessage();
 	         System.err.println(""+ex);
@@ -60,6 +64,7 @@ public class ControllerServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		RfidModel model = new RfidModel();
+		model.setCharge("parameter charge : \nrfidAddress => "+numRfid+"\nport => "+port+"\naddressIP => "+address);
 		model.setError(errorDll);
 		model.setSend(" ");
 		req.setAttribute("model", model);
@@ -73,8 +78,10 @@ public class ControllerServlet extends HttpServlet{
 		String action = request.getParameter("action");
 		String area = request.getParameter("area");
 		model.setEpc(area);
+		model.setCharge("parameter charge : \nrfidAddress => "+numRfid+"\nport => "+port+"\naddressIP => "+address);
 		if(action.equals("Reader")){
-			model.setEpc(metier.readerRfid(numRfid, port, address));
+			metier.readerRfid(Integer.parseInt(numRfid, 16), port, address);
+			model.setEpc(metier.readerRfid(Integer.parseInt(numRfid, 16), port, address));
 			model.setSend("");
 		}else if(action.equals("Send")){
 			if(area==null){

@@ -5,6 +5,15 @@ public class RfidModel {
 	private String epc;
 	private String error;
 	private String send;
+	private String charge;
+
+	public String getCharge() {
+		return charge;
+	}
+
+	public void setCharge(String charge) {
+		this.charge = charge;
+	}
 
 	public String getEpc() {
 		return epc;
